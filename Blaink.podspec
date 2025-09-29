@@ -16,8 +16,7 @@ Pod::Spec.new do |s|
   s.swift_version = '6.0'
 
   # Source files from the Swift Package structure
-  s.source_files = 'Sources/Blaink/**/*.{swift,h,m}'
-  s.public_header_files = 'Sources/Blaink/**/*.h'
+  s.source_files = 'Sources/Blaink/**/*.{swift}'
   
   # Framework dependencies
   s.frameworks = 'Foundation', 'UIKit', 'UserNotifications'
