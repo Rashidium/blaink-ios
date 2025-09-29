@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Blaink'
-  s.version          = '1.1.6'
+  s.version          = '1.1.7'
   s.summary          = 'Blaink iOS SDK for push notifications and messaging'
   s.description      = <<-DESC
     Blaink iOS SDK provides push notification and messaging capabilities 
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/Rashidium/blaink-ios.git', :tag => s.version.to_s }
   
   s.ios.deployment_target = '16.0'
-  s.swift_version = '6.0'
+  s.swift_version = '5.10'
 
   # Source files from the Swift Package structure
   s.source_files = 'Sources/Blaink/**/*.{swift}'
