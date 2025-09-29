@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Blaink'
-  s.version          = '1.1.4'
+  s.version          = '1.1.5'
   s.summary          = 'Blaink iOS SDK for push notifications and messaging'
   s.description      = <<-DESC
     Blaink iOS SDK provides push notification and messaging capabilities 
