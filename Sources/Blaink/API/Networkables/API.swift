@@ -9,7 +9,7 @@
 import Foundation
 
 enum API {
-    static let isLocal: Bool = true
+    static let isLocal: Bool = false
     static var baseURL: String {
         if isLocal {
             "http://192.168.1.114:5432/"
