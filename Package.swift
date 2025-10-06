@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Blaink",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v16)],
     products: [
         .library(
             name: "Blaink",
