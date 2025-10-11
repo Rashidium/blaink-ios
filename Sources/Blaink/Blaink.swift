@@ -15,6 +15,8 @@ import UserNotifications
     var sdkKey: String = ""
     var environment: PushEnvironment = .production
 
+    var isInitialized: Bool = false
+
     override public init() {
         super.init()
     }
@@ -48,6 +50,7 @@ import UserNotifications
             let response = await API.AUTH.initSdk(request: request).fetch(responseModel: ClientResponse.self)
             switch response {
             case let .success(client):
+                self.isInitialized = true
                 UserSession.shared.accessToken = client.accessToken
                 UserSession.shared.refreshToken = client.refreshToken
                 delegate?.didRegisterForBlainkNotifications(blainkUserId: client.id)
@@ -64,12 +67,11 @@ import UserNotifications
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         Keychain.shared.pushNotificationToken = token
-        if UserSession.shared.accessToken != nil, !token.isEmpty {
-            submitAPNSToken(token)
-        }
+        submitAPNSToken(token)
     }
 
     func submitAPNSToken(_ token: String) {
+        guard isInitialized else { return }
         Task {
             _ = await API.AUTH
                 .update(request: UpdateUserRequest(pushNotificationToken: token, pushEnvironment: environment))
