@@ -16,6 +16,7 @@ import UserNotifications
     var environment: PushEnvironment = .production
 
     var isInitialized: Bool = false
+    private let deviceInfoManager = DeviceInfoManager()
 
     override public init() {
         super.init()
@@ -82,7 +83,8 @@ import UserNotifications
     public func didReceive(_ request: UNNotificationRequest) {
         guard let apnsID = getAPNSId(in: request) else { return }
         Task {
-            let apnsRequest = APNSNotificationRequest(id: apnsID, action: "delivered")
+            let deviceInfo = deviceInfoManager.getDeviceInfo()
+            let apnsRequest = APNSNotificationRequest(id: apnsID, action: "delivered", deviceInfo: deviceInfo)
             _ = await API.APNS.updateNotification(request: apnsRequest).fetch(responseModel: EmptyModel.self)
         }
     }
@@ -113,7 +115,8 @@ extension Blaink: @preconcurrency UNUserNotificationCenterDelegate {
         _ center: UNUserNotificationCenter, willPresent notification: UNNotification
     ) async -> UNNotificationPresentationOptions {
         if let apnsID = getAPNSId(in: notification) {
-            let apnsRequest = APNSNotificationRequest(id: apnsID, action: "delivered")
+            let deviceInfo = deviceInfoManager.getDeviceInfo()
+            let apnsRequest = APNSNotificationRequest(id: apnsID, action: "delivered", deviceInfo: deviceInfo)
             _ = await API.APNS.updateNotification(request: apnsRequest).fetch(responseModel: EmptyModel.self)
         }
         return [.banner, .sound]
