@@ -17,7 +17,7 @@ struct APNSNotificationRequest: Encodable {
     let id: UUID
     let action: String
     let deviceInfo: String?
-    
+
     init(id: UUID, action: String, deviceInfo: String? = nil) {
         self.id = id
         self.action = action
